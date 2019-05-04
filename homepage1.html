@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+        
+        
+<!--///////////////////-->	
+        <style>
+/*固定頁頭 Start--------------*/
+#fixed-header-slide {
+width: 100%;
+height: 70px; /* 視情況而定(本例依圖片高度而設定) */
+position: fixed;
+top: 0px;
+z-index: 2;
+}
+#fixed-header-wrap {
+width: 100%;
+height: 70px; /* 視情況而定(本例依圖片高度而設定) */
+position: absolute;
+bottom: 0px;
+}
+header {
+width: 100%;
+height: 70px; /* 視情況而定(本例依圖片高度而設定) */
+margin: 0 auto;
+position: relative;
+z-index: 1;
+} 
+/*固定頁頭 End----------------*/
+        #opleft{
+        	position:absolute;
+        	top:-2000px;
+        	right:50%;
+        	-webkit-animation-name: opleft; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 8s; /* Safari 4.0 - 8.0 */
+        }
+        @-webkit-keyframes opleft {
+  0%   {right:50%; top:10px;}
+  100% {left:0%; top:-2000px;}
+}
+        
+        #opright{
+        	position:absolute;
+        	top:-2000px;
+        	left:50%;
+        	-webkit-animation-name: opright; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 8s; /* Safari 4.0 - 8.0 */
+        }
+        @-webkit-keyframes opright {
+  0%   {left:50%; top:10px;}
+  100% {left:0%; top:-2000px;}
+}
+        
+        #showtime{
+        	background-color:yellow;
+        }
+        
+        #h1{
+        	top:5px;
+        }
+            body{
+            	background-image:url("./imge/star.jpg");
+            	background-repeat: repeat-x;
+            }
+        #mg{
+        	width:14%;
+        	height:200px;
+        }
+        #p1{
+        	left:400px;
+        }
+        
+    #lamp{
+    	background-color:black;
+    }    
+        #banner1 {
+	position: relative;
+	top :50px;
+	width: 100%;
+	height: 300px;
+	margin: 10px auto;
+	overflow: hidden;/*overflow超過部分*//*visible,hidden,scroll捲軸*/
+	outline: 1px solid gray;
+	background-color:black;
+}
+
+
+		#sea {
+	position: relative;
+	top:50px;
+	width: 100%;
+	height: 250px;
+	margin: 1px auto;
+	overflow: hidden;/*overflow超過部分*//*visible,hidden,scroll捲軸*/
+	outline: 1px solid gray;
+	background-color:white;
+
+}
+#seaText {
+	position: absolute;
+	right: 15px;
+	top: 8px;
+	font-family: Arial;
+	font-style: italic;
+	font-size: 20px;
+	color: DarkBlue;
+}
+#seaImage{
+	position: relative;
+	width: 1800px;
+	height: 250px;
+	top:200px;
+	background-image: url("imge/se.jpg");
+	background-repeat: repeat-x;
+	-webkit-animation: rollImage linear 5s infinite;
+}
+	
+@-webkit-keyframes rollImage {
+	0% { right: 360px;}
+	to { right: 0px; }
+}
+@-webkit-keyframes rollTX {
+	from { left:360px; }
+	to { left: 0px; }
+}
+/*class選擇變數定義為effect   infinite為自動*/
+.effect{
+	animation:blink 2s infinite;
+}
+/*定義閃爍動畫 */
+
+@keyframes blink{
+	0%{opacity:0}
+	50%{opacity:1}
+	100%{opacity:0}
+}
+
+
+#banner3_2 {
+	position: relative;
+	top :50px;
+	width: 100%;
+	height: 330px;
+	margin: 30px auto;
+	overflow: hidden;/*overflow超過部分*//*visible,hidden,scroll捲軸*/
+	outline: 1px solid gray;
+	background-color:greenyellow;
+}
+
+#div2 {
+    float: left;
+    width: 55%;
+    height: 500px;
+    border: 1px solid lightblue;
+    margin: 5px;
+    padding: 10px;
+    background-color:white;
+  }
+
+#banner3_1 {
+	position: relative;
+	top :10px;
+	width: 100%;
+	height: 450px;
+	overflow: hidden;/*overflow超過部分*//*visible,hidden,scroll捲軸*/
+	outline: 1px solid gray;
+	background-color: lightblue;
+}
+
+#div1 {
+    float: left;
+    width: 24%;
+    height: 500px;
+    border: 1px solid lightblue;
+    margin: 5px;
+    padding: 10px;
+  }
+  
+  #imgx1{
+  	width:55%
+  	
+  }
+
+
+        </style>
+<!--///////////////////-->	
+    </head>
+    <body onload="time()">
+    	
+<!-- Fixed Header Start--> 
+<div id="fixed-header-slide">
+<div id="fixed-header-wrap">
+<header data-role="header" style="background: #FFFFFF;border: none;" > <!-- 頁頭 -->
+<!---->
+<img id="opleft" src="op.png"><img id="opright" src="op2.png">
+<!---->
+<div id="lamp"><p style="text-align:center;"><a class="btn btn-info btn-lg" role="button">Home</a>
+	  	
+	  <a class="btn btn-danger btn-lg" role="button" href="./game/game.html">休閒小遊戲</a>
+	  <a class="btn btn-warning btn-lg" id=visitor>warning</a>
+	  <a class="btn btn-primary btn-lg" onclick="lampfunction1()" >電燈開</a>
+	  <a class="btn btn-primary btn-lg" onclick="lampfunction2()" >電燈關</a>
+</div>
+<div id="showtime">xxxxxxxxxxxxxx</div>
+
+<!--顯示來訪人數-->
+<script type="text/javascript">
+
+if (localStorage.pagecount)
+	{
+	localStorage.pagecount=Number(localStorage.pagecount) +1;
+	}
+else
+	{
+	localStorage.pagecount=1;
+	}
+document.getElementById('visitor').innerHTML="歷史訪問人數: " + localStorage.pagecount;
+
+</script> 
+<!--顯示來訪人數-->
+
+<script>
+	  function time(){
+    //获得显示时间的div
+    t_div = document.getElementById('showtime');
+   var now=new Date()
+    //替换div内容 
+   t_div.innerHTML = now.getFullYear()
+    +"年"+(now.getMonth()+1)+"月"+now.getDate()
+    +"日"+now.getHours()+"时"+now.getMinutes()
+    +"分"+now.getSeconds()+"秒";
+    //等待一秒钟后调用time方法，由于settimeout在time方法内，所以可以无限调用
+   setTimeout(time,1000);
+  }
+</script>
+</header>
+</div>
+</div>
+<!-- Fixed Header End-->
+
+
+
+  
+    	
+<!--///////////////////-->	
+    	<div id="banner1">
+		<div id="bannerImage1"></div>
+		<div id="bannerText1">
+<!--////////////////////-->			
+<div id="myCarousel" class="carousel slide">
+	<!-- 控制圖片 -->
+	<ol class="carousel-indicators">
+		<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+		<li data-target="#myCarousel" data-slide-to="1"></li>
+		<li data-target="#myCarousel" data-slide-to="2"></li>
+	</ol>   
+
+	<!-- 圖片位置 -->
+	<div id ="p1"style="left:35%" class="carousel-inner">
+		<div class="item active">
+		<img src="./imge/11.jpg" alt="First slide" value="0">
+		</div>
+		<div class="item">
+		<img src="./imge/12.jpg" alt="Second slide" value="1">
+		</div>
+		<div class="item">
+		<img src="./imge/13.jpg" alt="Third slide" value="2">
+		</div>
+		<div class="item">
+		<img src="./imge/14.jpg" alt="First slide" value="3">
+		</div>
+		<div class="item">
+		<img src="./imge/15.jpg" alt="Second slide" value="4">
+		</div>
+		<div class="item">
+		<img src="./imge/16.jpg" alt="Third slide" value="5">
+		</div>
+		<div class="item">
+		<img src="./imge/17.jpg" alt="Second slide" value="6">
+		</div>
+	</div>
+	
+</div>
+
+<!-- 控制按钮 -->
+
+<div style="text-align:center;">
+
+	<input type="button" class="btn slide-one" value="蛾眉月" style="background-color : yellow">
+	<input type="button" class="btn slide-two" value="上弦月" style="background-color : lightblue">
+	<input type="button" class="btn slide-three" value="盈凸月" style="background-color : pink">
+	<input type="button" class="btn slide-4" value="滿月" style="background-color : white">
+	<input type="button" class="btn slide-5" value="虧凸月" style="background-color : pink">
+	<input type="button" class="btn slide-6" value="下弦月" style="background-color : lightblue">
+	<input type="button" class="btn slide-7" value="殘月" style="background-color : yellow">
+</div>
+<script>
+//電燈開關
+function lampfunction1(){
+	var time = new Date().getHours();
+  if (time < 20) {
+    $("#lamp").css("background-color",function(){return "white";});
+}
+}
+
+function lampfunction2(){
+	var time = new Date().getHours();
+  if (time < 20) {
+    $("#lamp").css("background-color",function(){return "black";});
+}
+}
+	$(function(){
+
+
+		// $("#p1").change(function(){
+		// switch ((parseInt($(this).val()))) {
+		// 	case '0':
+		// 		// code
+		// 		$("#bannerImage3").css("top",function(){return "200px";});
+		// 		break;
+		// 	case '1':
+		// 		// code
+		// 		$("#bannerImage3").css("top",function(){return "120px";});
+		// 		break;
+		// 	case '2':
+		// 		// code
+		// 		$("#bannerImage3").css("top",function(){return "60px";});
+		// 		break;
+		// 	case '3':
+		// 		// code
+		// 		$("#bannerImage3").css("top",function(){return "0px";});
+		// 		break;
+		// 	case '4':
+		// 		// code
+		// 		$("#bannerImage3").css("top",function(){return "60px";});
+		// 		break;
+		// 	case '5':
+		// 		// code
+		// 		$("#bannerImage3").css("top",function(){return "120px";});
+		// 		break;
+		// 	case '6':
+		// 		// code
+		// 		$("#bannerImage3").css("top",function(){return "200px";});
+		// 		break;	
+		// }
+		// });
+
+
+		// 播放指定的頻和改變海浪高度
+		$(".slide-one").click(function(){
+			$("#myCarousel").carousel(0);
+		});
+		$(".slide-one").click(function(){
+		$("#seaImage").css("top",function(){return "200px";});
+		});
+		
+		$(".slide-two").click(function(){
+			$("#myCarousel").carousel(1);
+		});
+		$(".slide-two").click(function(){
+		$("#seaImage").css("top",function(){return "120px";});
+		});
+		$(".slide-three").click(function(){
+			$("#myCarousel").carousel(2);
+		});
+		$(".slide-three").click(function(){
+		$("#seaImage").css("top",function(){return "60px";});
+		});
+		$(".slide-4").click(function(){
+			$("#myCarousel").carousel(3);
+		});
+		$(".slide-4").click(function(){
+		$("#seaImage").css("top",function(){return "20px";});
+		});
+		$(".slide-5").click(function(){
+			$("#myCarousel").carousel(4);
+		});
+		$(".slide-5").click(function(){
+		$("#seaImage").css("top",function(){return "60px";});
+		});
+		$(".slide-6").click(function(){
+			$("#myCarousel").carousel(5);
+		});
+		$(".slide-6").click(function(){
+		$("#seaImage").css("top",function(){return "120px";});
+		});
+		$(".slide-7").click(function(){
+			$("#myCarousel").carousel(6);
+		});
+		$(".slide-7").click(function(){
+		$("#seaImage").css("top",function(){return "200px";});
+		});
+	});
+</script>
+<!--////////////////////-->		
+		</div>
+	</div>
+            
+	</div>
+        <div id="sea">
+		<div id="seaImage"></div>
+		<div id="seaText" class="effect">海洋
+		點擊<span class="glyphicon glyphicon-hand-up"></span>不同月向按鈕看海洋變化</div>
+	</div>
+
+		<div id="banner3_2">
+		<div id="bannerImage3_2"></div>
+		<div id="bannerText3_2">
+		<a href="https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwifno3-z-7fAhWBbrwKHZxlCysQjRx6BAgBEAU&url=https%3A%2F%2Fwww.emaze.com%2F%40AFILOQZF&psig=AOvVaw3agQ9eDf6CDYTmpfCWTPHp&ust=1547601719183721"
+		target="_blank"><img src="imge/se1.jpg"
+		style="float: left; margin: 10px;" /></a>
+	<div id="div2">
+	<p style="font-size:30px">潮汐，</p><p style="font-size:20px">潮汐的發生，基本上是由於地球與其他天體的萬有引力所造成，主要的影響來自月球，其次為太陽。</p>
+
+	<p style="font-size:20px">萬有引力大小與天體的質量成正比，與兩者距離二次方成反比。</p>
+	<p style="font-size:20px">太陽的質量是月球的27,154,000倍，日地距離是月地距離的390倍，所以月球對地球的萬有引力大約是太陽的2.2倍。</p>
+	<p style="font-size:20px">至於其餘行星及恆星對地球的萬有引力則小很多。</p>
+		<p>圖片取材自<a href="https://www.emaze.com/@AFILOQZF" target="_blank">潮汐權威們()的資料</a></p>
+		<p>文字取材自<a href="https://www.emaze.com/@AFILOQZF" target="_blank">氣象局</a></p>
+		</div>
+		</div>
+		</div>
+	
+		<br>
+		
+		<div id="banner3_1">
+		<div id="bannerImage3_1"></div>
+		<div id="bannerText3_1">
+		<div id="div1" class="panel panel-info"> <img id="imgx1" src="./imge/10.jpg"><br><font size="20px">新月</font>
+		<font size="5px"><p>月球完全在太陽陰影內，<br>幾乎肉眼不可見</p><p>平均月出時間6 a.m</p><p>平均月落時間6 p.m</p></font><font size="10px">大潮組一員</font></div>
+	
+	<div id="div1" class="panel panel-info"><img id="imgx1" src="./imge/12.jpg"><br><font size="20px">上弦月</font>
+	<font size="5px"><p>月球部分在太陽陰影內，<br>肉眼可見50%</p><p>平均月出時間6 p.m</p><p>平均月落時間 午夜</p></font><font size="10px">小潮組一員</font></div>
+	
+	<div id="div1" class="panel panel-info"><img id="imgx1" src="./imge/14.jpg"><br><font size="20px">滿月</font>
+	<font size="5px"><p>月球完全在太陽陰影外，<br>肉眼可見</p><p>平均月出時間 午夜</p><p>平均月落時間6 a.m</p></font><font size="10px">大潮組一員</font></div>
+	
+	<div id="div1" class="panel panel-info"><img id="imgx1" src="./imge/16.jpg"><br><font size="20px">下弦月</font>
+	<font size="5px"><p>月球部分在太陽陰影內，<br>肉眼可見50%</p><p>平均月出時間6 a.m</p><p>平均月落時間 中午</p></font><font size="10px">小潮組一員</font></div>
+	</div>
+	</div>
+
+    </body>
+</html>

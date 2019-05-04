@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=utf-8>
+        <script src="js/three.min.js"></script>
+        <title>Moon</title>
+        
+    </head>
+    <body>
+        <div id="cinema" style="box-shadow:3px 3px 5px 6px #cccccc;"></div>
+        <script>
+            // 在這裡寫 Lab 練習的程式
+////框////
+        const renderer = new THREE.WebGLRenderer();
+        ////全螢幕
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        /////這段是框
+        document.getElementById('cinema').appendChild(renderer.domElement);
+        /////場景
+        var scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x000000);
+        ///照相機(40調整遠近,越大越遠)
+        ///大顆
+        const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 10000);
+        //小顆
+        // var camera = new THREE.OrthographicCamera( 
+        //     window.innerWidth / - 2, 
+        //     window.innerWidth / 2, 
+        //     window.innerHeight / 2, 
+        //     window.innerHeight / - 2, 
+        //     1, 
+        //     1000 
+        // );
+        //////調整位置
+        camera.position.set(0, 0, 500);
+        scene.add(camera);
+        ///畫一顆球
+        ////(200控制大小,50控制圓弧,50控制稜角)
+        var sphere = new THREE.SphereGeometry(200, 50, 50);
+        var material = new THREE.MeshNormalMaterial();
+        var mesh = new THREE.Mesh(sphere, material);
+        mesh.position.z = -300;
+        scene.add(mesh);
+        
+    
+        ///*****材質
+        var loader = new THREE.TextureLoader();
+        loader.load('images/moon.jpg', function(texture) {
+            mesh.material = new THREE.MeshBasicMaterial({ map: texture, overdraw: 0.5 });
+            renderer.render(scene, camera);
+        });
+        
+        /////動畫
+        requestAnimationFrame(doRender);
+        function doRender() {
+            try { mesh.rotation.y += 0.0005; } catch (e) { };
+            renderer.render(scene, camera);
+            requestAnimationFrame(doRender);
+        }
+        
+        ///*****使用者按鍵互動
+        document.onkeydown = function(e) {
+            switch (event.keyCode) {
+                case 38: // up
+                    mesh.rotation.x -= 0.2;
+                    break;
+                case 40: // down
+                    mesh.rotation.x += 0.2;
+                    break;
+                case 37: // left
+                    mesh.rotation.y -= 0.2;
+                    break;
+                case 39: // right
+                    mesh.rotation.y += 0.2;
+                    break;
+            }
+            event.preventDefault();
+        }
+        
+        /////使用者滑鼠
+        var lastMove = {
+            x: window.innerWidth / 2,
+            y: window.innerHeight / 2
+        };
+
+        var isMouseDown = false;
+
+        document.onmousedown = function() {
+            isMouseDown = true;
+            lastMove.x = event.clientX;
+            lastMove.y = event.clientY;
+        }
+
+        document.onmouseup = function() {
+            isMouseDown = false;
+        }
+
+        document.onmousemove = function() {
+            if (isMouseDown == false) {
+                return;
+            }
+            var moveX = event.clientX - lastMove.x;
+            var moveY = event.clientY - lastMove.y;
+
+            mesh.rotation.y += moveX * 0.0002;
+            mesh.rotation.x += moveY * 0.0002;
+
+            lastMove.x = e.clientX;
+            lastMove.y = e.clientY;
+        }
+            
+        </script>
+    </body>
+</html>

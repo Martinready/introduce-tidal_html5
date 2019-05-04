@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="js/three.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <style>
+         #box {
+border:5px orange solid;
+padding:20px;
+width:500px;
+margin:20px 0px;
+background-color:white;
+text-align:center;
+}
+         #result {
+border:5px white solid;
+padding:20px;
+width:80%;
+margin:20px 0px;
+background-color:white;
+text-align:center;
+}
+
+
+         #box2 {
+border:5px white solid;
+padding:10px;
+width:500px;
+margin:15px 0px;
+background-color:white;
+text-align:center;
+}
+        #demo {
+border:5px orange solid;
+padding:1px;
+width:500px;
+margin:20px 0px;
+} 
+#demo2 {
+border:5px blue solid;
+padding:15px;
+width:500px;
+margin:15px 0px;
+}
+    </style>
+    </head>
+    <!--圖片來源:http://zh-tw.slimerancher.wikia.com/wiki/%E6%AA%94%E6%A1%88:%E7%82%B8%E5%BD%88.png-->
+    <body style="background-image:url(bomb.png)">
+        
+        <div id="box">
+        遊戲名稱:解除炸彈演練<a class="btn btn-info btn-sm" role="button" href="../homepage1.html">返回前一頁</a>
+        <a class="btn btn-info btn-sm" role="button" href="./game.1.html">PLUS版</a>
+         <p id="result"></p>
+         <button onclick="onclick1()">說明</button>
+         <span id="box2">請猜1~100</span>
+         <br>
+         <p>
+        使用者輸入
+        <input type="text" id="user"  name ="user" value="請輸入數字">
+        <button onclick="myFunction()">Try it</button>
+        </p>
+        <br>
+        <sapn id="demo3"></sapn>
+        <br><br>
+        <span id="demo2">智能AI<span id="demo">分析中</span></span>
+        
+        
+        
+        
+        
+        <script>
+        sessionStorage.clickcount=0;
+        function onclick1(){
+            alert(" 遊戲說明:炸彈即將引爆，請猜出最後一個數字即可解除炸彈，有五次猜測數字的機會，不過別擔心智能AI會提示你該怎麼猜")
+        }
+        
+        //   設一個隨機亂數1到100
+            var guess =  Math.floor((Math.random() * 99) + 1);
+            document.write(guess);
+             
+             
+
+             
+                 //判斷數字是否正確和大小
+                function myFunction() 
+                {
+                      var useranswer = user.value
+                      var answer;
+                      var count=0;
+                      var maxCount=3;
+
+                        if (guess == useranswer) 
+                      {
+                         answer = "正確,答案:"+guess;
+                      }     
+                      else if(guess > useranswer) 
+                        {
+                        answer = "猜錯啦，請猜大一點";
+
+                        }       
+                            else
+                                {
+                                answer = "猜錯，請猜小一點";
+
+                                }
+                      
+                      document.getElementById("demo").innerHTML = answer;
+
+                            
+                if(typeof(Storage) !== "undefined") {
+                if (sessionStorage.clickcount) {
+                    sessionStorage.clickcount = Number(sessionStorage.clickcount)+1;
+                } else {
+                    sessionStorage.clickcount = 1;
+                }
+                
+                document.getElementById("result").innerHTML = "剩餘次數: " + (5-sessionStorage.clickcount) + " 次。";
+            } 
+        if(sessionStorage.clickcount>5){
+        
+        $('#myModal').modal('show');
+        document.getElementById("demo").innerHTML = "炸彈爆炸啦，雖說是練習也別掉以輕心，觀戰中";
+        document.getElementById("demo3").innerHTML = "答案:"+guess;
+        }
+
+                    
+                }
+                
+                   
+        </script>
+
+<!--隱藏-->
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" style="visibility:hidden">
+                
+            </button>
+            <!--互動-->
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!--互動上層-->
+                        <div class="modal-header">
+                            <h3 class="modal-title">
+                                遊戲結束
+                            </h3>
+                            <button type="button" class="close" data-dismiss="modal"></button>
+                        </div>
+                        <!--互動內層-->
+                        <div class="modal-body">
+                           <image style="width:100%" src="1.jpg"></image>
+                        </div>
+                        準備好在開始吧，開始請關閉網頁重新登入
+                    </div>
+                </div>
+                <!--互動bottom-->
+                <div class="modal-footer">
+                    <!--隱藏-->
+                    <button type="button" class="btn btn-primary" onclick="window.location.reload()">
+                        <!--重新-->
+                    </button>
+                    <!--隱藏-->
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        觀戰模式
+                    </button>
+                </div>
+            </div>
+</div>
+        
+        <EMBED SRC="game/game/sea.mp3" autostart=true HIDDEN=false LOOP=TRUE> <BGSOUND SRC="game/game/sea.mp3" LOOP=INFINITE>
+    </body>
+</html>

@@ -1,0 +1,22 @@
+【課後參考資料】
+
+Three.js 一場從2D變成3D的冒險
+https://www.slideshare.net/ssuserebb1b2/threejs-2d3d
+
+
+Learning Three.js 的書附範例程式:
+https://github.com/josdirksen/learning-threejs/tree/threejs_r63
+
+
+Tutorial 教學文件:
+https://www.script-tutorials.com/webgl-with-three-js-lesson-1/
+https://www.script-tutorials.com/webgl-with-three-js-lesson-2/
+https://www.script-tutorials.com/webgl-with-three-js-lesson-3/
+https://www.script-tutorials.com/webgl-with-three-js-lesson-4/
+https://www.script-tutorials.com/webgl-with-three-js-lesson-5/
+https://www.script-tutorials.com/webgl-with-three-js-lesson-6/
+https://www.script-tutorials.com/webgl-with-three-js-lesson-7/
+https://www.script-tutorials.com/webgl-with-three-js-lesson-8/
+https://www.script-tutorials.com/webgl-with-three-js-lesson-9/
+https://www.script-tutorials.com/webgl-with-three-js-lesson-10/
+https://www.script-tutorials.com/webgl-with-three-js-lesson-11/

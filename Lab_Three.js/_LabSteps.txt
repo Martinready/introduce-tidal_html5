@@ -1,0 +1,276 @@
+Lab: Three.js 入門練習
+
+
+0.  造句練習，請造一個句子，內容需包含下列事物:
+    場景、人物、照相機、發臉書
+    
+
+
+
+1.  安裝引用 Three.js
+
+
+1.1 在本練習資料夾新建一個 HTML 文件，檔名: Lab.html，內容如下:
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=utf-8>
+        <title>Lab</title>
+        
+    </head>
+    <body>
+        <div id="cinema"></div>
+        <script>
+            // 在這裡寫 Lab 練習的程式
+            
+            
+        </script>
+    </body>
+</html>
+
+
+1.2 在 head 區塊以相對路徑引用 js 資料夾裡頭的 three.min.js:
+
+<script src="js/three.min.js"></script>
+
+<Note> 
+Three.js 官網 https://threejs.org/ 可下載 three.js-master.zip，
+解壓縮後的 build 資料夾有 three.min.js
+
+
+
+
+2.  以程式加入 canvas 元素
+
+
+2.1 找到「// 在這裡寫 Lab 練習的程式」，置入下列程式:
+
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('cinema').appendChild(renderer.domElement);
+
+
+2.2 存檔後，在瀏覽器觀看作品
+
+
+2.3 以滑鼠右鍵點按畫面的黑色矩形區域 | 檢查，
+    會發現多出一個 canvas 元素，例如: 
+    <canvas width="1229" height="607" style="width: 1229px; height: 607px;"></canvas>
+    (長寬數字依照瀏覽器視窗大小而有不同)
+
+
+2.4 請想一下這個 canvas 是上述哪一個物件加進去的?
+
+
+
+
+3.  描繪作品
+
+
+3.1 繼續寫作下列程式建立 Scene (場景):
+
+        var scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x000000);
+
+
+3.2 繼續寫作下列程式建立 Camera (照相機)
+
+        const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 10000);
+        camera.position.set(0, 0, 500);
+        scene.add(camera);
+
+<Note> Camera (照相機) 各項參數，請參考:
+https://www.script-tutorials.com/webgl-with-three-js-lesson-9/
+
+
+3.3 場景有了，照相機有了，該請入主角了:
+
+        var sphere = new THREE.SphereGeometry(200, 50, 50);
+        var material = new THREE.MeshNormalMaterial();
+        var mesh = new THREE.Mesh(sphere, material);
+        mesh.position.z = -300;
+        scene.add(mesh);
+
+
+3.4 Render(輸出/算圖/描繪/渲染) 影像，呼叫 Renderer 描繪出作品:
+
+        renderer.render(scene, camera);
+
+
+3.5 存檔後，在瀏覽器觀看作品。
+    <Note> 順利的話，畫面會出現一顆彩球。
+
+
+3.6 請試著回答下列問題:
+
+(A) SphereGeometry 是一種 Geometry(幾何體)，就你的體會，幾何體是什麼?
+
+(B) MeshNormalMaterial 是一種 Material(材質)，就你的體會，材質是什麼?
+
+(C) 你覺得 Mesh(網面) = Geometry(幾何體) + Material(材質) 嗎?
+
+(D) 以 scene.add() 加進 Scene 裏頭的是什麼?
+
+(E) Scene、Camera、WebGLRenderer 三者之間的關係是什麼?
+
+
+3.7 找到並且將 renderer.render(scene, camera); 
+    那行去掉，然後加入下列程式以更換材質:
+
+        var loader = new THREE.TextureLoader();
+        loader.load('images/earth.jpg', function(texture) {
+            mesh.material = new THREE.MeshBasicMaterial({ map: texture, overdraw: 0.5 });
+            renderer.render(scene, camera);
+        });
+
+
+3.5 存檔後，在瀏覽器觀看作品。
+
+    <Note> 順利的話，畫面會出現地球。
+    
+    <Note> 圖片顯示的是2004年12月的地球，圖片來源:
+    https://visibleearth.nasa.gov/view.php?id=73909
+
+
+3.6 請問為何上述程式要採用非同步程式模型的寫法?
+
+
+
+
+4.  動畫，讓地球動起來
+
+
+4.1 繼續加入下列程式:
+
+        requestAnimationFrame(doRender);
+        function doRender() {
+            try { mesh.rotation.y += 0.0002; } catch (e) { };
+            renderer.render(scene, camera);
+            requestAnimationFrame(doRender);
+        }
+
+
+
+4.2 存檔後，在瀏覽器觀看作品。
+
+    <Note> 順利的話，畫面中的地球會緩緩自西向東旋轉。
+
+
+4.3 請試著回答下列問題:
+
+(A) requestAnimationFrame() 這個函式的作用是什麼?
+
+(B) 為何需要用 try..catch 包住程式?
+
+(C) 讓 mesh.rotation.y 變大，是什麼意思啊?
+
+(D) 改成調整 mesh.rotation.x，畫面會怎麼變化?
+
+
+
+
+5.  與使用者互動
+
+
+5.1 寫作 document 的 keydown 事件，讓使用者以上下左右鍵旋轉地球:
+    (A) 偵測 event.keyCode 是否是上下左右鍵(38,40,37,39)
+    (B) 依上下左右鍵，分別改變 mesh.rotation.x 與 mesh.rotation.y 的值
+    
+    參考寫法:
+
+        document.onkeydown = function(e) {
+            switch (event.keyCode) {
+                case 38: // up
+                    mesh.rotation.x -= 0.2;
+                    break;
+                case 40: // down
+                    mesh.rotation.x += 0.2;
+                    break;
+                case 37: // left
+                    mesh.rotation.y -= 0.2;
+                    break;
+                case 39: // right
+                    mesh.rotation.y += 0.2;
+                    break;
+            }
+            event.preventDefault();
+        }
+
+
+5.2 想想看，如果要用滑鼠撥弄來旋轉地球，程式該怎麼寫呢?
+
+    參考程式:
+
+        var lastMove = {
+            x: window.innerWidth / 2,
+            y: window.innerHeight / 2
+        };
+
+        var isMouseDown = false;
+
+        document.onmousedown = function() {
+            isMouseDown = true;
+            lastMove.x = event.clientX;
+            lastMove.y = event.clientY;
+        }
+
+        document.onmouseup = function() {
+            isMouseDown = false;
+        }
+
+        document.onmousemove = function() {
+            if (isMouseDown == false) {
+                return;
+            }
+            var moveX = event.clientX - lastMove.x;
+            var moveY = event.clientY - lastMove.y;
+
+            mesh.rotation.y += moveX * 0.0002;
+            mesh.rotation.x += moveY * 0.0002;
+
+            lastMove.x = e.clientX;
+            lastMove.y = e.clientY;
+        }
+
+
+
+
+6.  調整照相機各項設定
+
+
+6.1 閱讀下列網址有關於 Camera (照相機) 各項參數的說明:
+    https://www.script-tutorials.com/webgl-with-three-js-lesson-9/
+
+
+6.2 找出 new THREE.PerspectiveCamera() 這一列程式，
+    調整建構函式的各項參數值: 
+    (建議一次只改一種，看過效果後，還原，再試另一個)
+    
+    (A) 第一個參數改成 15
+    (B) 第二個參數改成 3 / 2
+    
+    
+6.3 找到 camera.position.set(0, 0, 500); 這一列程式，
+    將第一個參數改成 300，存檔，在瀏覽器看效果。
+    
+    <Note> 應該會看到視角的變化以及地球球體的變形效果
+
+    
+6.4 將 new THREE.PerspectiveCamera() 程式註解(或去除)，改用下列程式
+        var camera = new THREE.OrthographicCamera( 
+            window.innerWidth / - 2, 
+            window.innerWidth / 2, 
+            window.innerHeight / 2, 
+            window.innerHeight / - 2, 
+            1, 
+            1000 
+        );
+
+
+6.5 存檔，在瀏覽器觀看這型照相機的視覺效果。
+
+
+
+
+7.  請回想一下「物件導向程式設計」我們談過的觀念。

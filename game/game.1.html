@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="js/three.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+         #box {
+border:5px orange solid;
+padding:20px;
+width:500px;
+margin:20px 0px;
+background-color:white;
+text-align:center;
+}
+         #result {
+border:5px white solid;
+padding:20px;
+width:80%;
+margin:20px 0px;
+background-color:white;
+text-align:center;
+}
+
+#countdown {
+border:5px red solid;
+padding:20px;
+width:100%;
+margin:10px 0px;
+background-color:white;
+text-align:center;
+}
+
+
+
+         #box2 {
+border:5px white solid;
+padding:10px;
+width:500px;
+margin:15px 0px;
+background-color:white;
+text-align:center;
+}
+        #demo {
+border:5px orange solid;
+padding:1px;
+width:500px;
+margin:20px 0px;
+} 
+#demo2 {
+border:5px blue solid;
+padding:15px;
+width:500px;
+margin:15px 0px;
+}
+
+/*class選擇變數定義為effect   infinite為自動*/
+.effect{
+	animation:blink 2s infinite;
+}
+/*定義閃爍動畫 */
+
+@keyframes blink{
+	0%{opacity:0}
+	50%{opacity:1}
+	100%{opacity:0}
+}
+    </style>
+    <script type="text/javascript">
+    sessionStorage.clickcount=0;
+var countdownnumber=10;
+var countdownid;
+function initial(){ countdownfunc(); }
+function countdownfunc(){
+ var x=document.getElementById("countdown");
+ x.innerHTML=countdownnumber;
+ if (countdownnumber==0){ 
+     sessionStorage.clickcount = Number(sessionStorage.clickcount)+10;
+  $('#myModal').modal('show');
+  document.getElementById("demo").innerHTML = "炸彈爆炸啦，雖說是練習也別掉以輕心，觀戰中";
+        document.getElementById("demo3").innerHTML = "答案:"+guessA+";"+guessB;
+  clearTimeout(countdownid);
+ }else{
+  countdownnumber--;
+  if(countdownid){
+   clearTimeout(countdownid);
+  }
+  countdownid=setTimeout(countdownfunc,1000);
+ }
+}
+ </script>
+    </head>
+    <!--圖片來源:http://zh-tw.slimerancher.wikia.com/wiki/%E6%AA%94%E6%A1%88:%E7%82%B8%E5%BD%88.png-->
+    <body style="background-image:url(bomb.png)" onload="initial();">
+        
+        <div id="box">
+        遊戲名稱:解除炸彈演練升級版<a class="btn btn-info btn-sm" role="button" href="./game.html">普通版</a>
+        <a class="btn btn-info btn-sm" role="button" href="../homepage1.html">返回前一頁</a>
+         <p id="result" class="effect"></p>
+         <button onclick="onclick1()">說明</button>
+         <span id="box2">請猜1~9</span>
+         
+         <p>倒數時間:
+<div id="countdown"></div></p>
+         
+ 
+ 
+         <br>
+         <p>
+        使用者輸入
+        <input type="text" id="user"  name ="user" value="">
+        <input type="text" id="user2"  name ="user2" value="">
+        <button onclick="myFunction()">Try it</button>
+        </p>
+        <br>
+        <sapn id="demo3"></sapn>
+        <br><br>
+        <span id="demo2">智能AI<span id="demo">分析中</span></span>
+        
+        
+        
+        
+        
+        <script>
+        function onclick1(){
+            alert(" 遊戲說明:炸彈即將引爆，請猜出最後一個數字即可解除炸彈，有五次猜測數字的機會，不過別擔心智能AI會提示你該怎麼猜")
+        }
+        
+        //   設一個隨機亂數1到9
+            var guessA =  Math.floor((Math.random() * 8) + 1);
+            var guessB =  Math.floor((Math.random() * 8) + 1);
+            document.write(guessA);
+            document.write(guessB);
+             
+             
+
+             
+                 //判斷數字是否正確和大小
+                function myFunction() 
+                {
+                      var useranswer = user.value
+                      var user2answer = user2.value
+                      var answer;
+                      var count=0;
+                      var maxCount=3;
+
+                        if (guessA == useranswer && guessB == user2answer) 
+                      {
+                         alert("正確,答案:"+guessA+";"+guessB);
+                      }     
+                      else if(guessA == useranswer&& guessB != user2answer) 
+                        {
+                        answer = "1A1B";
+
+                        }       
+                            else if(guessA != useranswer&& guessB == user2answer) 
+                                {
+                                answer = "1B1A";
+
+                                }
+                                else if(guessA != useranswer&& guessB != user2answer) 
+                                {
+                                answer = "0A2B";
+
+                                }
+                      
+                      document.getElementById("demo").innerHTML = answer;
+
+                            
+                if(typeof(Storage) !== "undefined") {
+                if (sessionStorage.clickcount) {
+                    sessionStorage.clickcount = Number(sessionStorage.clickcount)+1;
+                } else {
+                    sessionStorage.clickcount = 1;
+                }
+                
+                document.getElementById("result").innerHTML = "剩餘次數: " + (5-sessionStorage.clickcount) + " 次。";
+            } 
+        if(sessionStorage.clickcount>5){
+        
+        $('#myModal').modal('show');
+        document.getElementById("demo").innerHTML = "炸彈爆炸啦，雖說是練習也別掉以輕心，觀戰中";
+        document.getElementById("demo3").innerHTML = "答案:"+guessA+";"+guessB;
+        }
+
+                    
+                }
+                
+                  function restFunction()  {
+                       sessionStorage.clickcount=1;
+                      window.location.reload();
+                  }
+        </script>
+
+<!--隱藏-->
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" style="visibility:hidden">
+                
+            </button>
+            <!--互動-->
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!--互動上層-->
+                        <div class="modal-header">
+                            <h3 class="modal-title">
+                                遊戲結束
+                            </h3>
+                            <button type="button" class="close" data-dismiss="modal"></button>
+                        </div>
+                        <!--互動內層-->
+                        <div class="modal-body">
+                           <image style="width:100%" src="1.jpg"></image>
+                        </div>
+                        準備好在開始吧，開始請關閉網頁重新登入
+                    </div>
+                </div>
+                <!--互動bottom-->
+                <div class="modal-footer">
+                    <!--隱藏-->
+                    <button type="button" class="btn btn-primary" onclick="restFunction()">
+                        重新
+                    </button>
+                    <!--隱藏-->
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        觀戰模式
+                    </button>
+                </div>
+            </div>
+</div>
+        
+        
+    </body>
+</html>
